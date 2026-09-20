@@ -1,0 +1,53 @@
+localizedName: Silvex
+alwaysUnlocked: false
+mesh: [
+ {
+    //valleys 
+    type: NoiseMesh
+    planet: silvex
+    divisions: 5
+    seed: 36
+    radius: 0.25
+    color1: 35373d
+    color2: 3b404d
+    octaves: 3.7
+    persistence: 1.1
+  }
+  {
+    //hills
+    type: NoiseMesh
+    planet: silvex
+    divisions: 5
+    radius: 0.24
+    seed: 28
+    color1: 676d7a
+    color2: 757985
+    octaves: 3.7
+    persistence: 0.6
+  }
+]
+sectorSize: 0.24
+allowLaunchSchematics: false
+allowLaunchToNumbered: false
+allowLaunchLoadout: false
+allowSectorInvasion: false
+startSector: 0
+orbitSpacing: 1
+orbitRadius: 5
+orbitTime: 0.2
+radius: 0.23
+minZoom: 0
+maxZoom: 0
+drawOrbit: true
+accessible: false
+updateLighting: true
+sectorSeed: 14513
+bloom: false
+visible: true
+hasAtmosphere: false
+allowWaveSimulation: false
+clearSectorOnLose: true
+allowWaves: false
+prebuildBase: false
+parent: serpulo
+solarSystem: sun
