@@ -1,0 +1,79 @@
+{
+  "type": "Conveyor",
+  "basedOn": "conveyor",
+  "name": "Armored Power Conveyor Belt",
+  "description": "Same as Power Conveyor Belt, An ultra-high-speed conveyor using electromagnetic levitation, with armor",
+  
+  "category": "distribution",
+  "health": 640,
+  "size": 1,
+  
+  "speed": 0.185,
+  "displayedSpeed": 0.2,
+  
+  "solid": false,
+  "floating": false,
+  "hasPower": true,
+  "conductivePower": true,
+  
+  "consumes": {
+    "power": 0.008
+  },
+  
+  "requirements": [
+    {
+         "item": "copper",
+         "amount": 5
+        },
+       {
+ "item": "titanium",
+         "amount": 4
+        },
+       {
+         "item": "silicon",
+         "amount": 2 
+       },
+       {
+         "item": "surge-alloy",
+         "amount": 1 
+        },
+      {
+          "item": "lead",
+          "amount": 5
+       },
+      {
+          "item": "thorium",
+          "amount": 4
+       }
+  ],
+  "research": {
+    "parent": "power-conveyor-belt",
+    "requirements": 
+     [
+       {
+          "item": "copper",
+          "amount": 5000 
+        },
+       {
+          "item": "titanium",
+          "amount": 3000 
+        },
+       {
+          "item": "silicon",
+          "amount": 2000 
+        },
+       {
+          "item": "surge-alloy",
+          "amount": 1000
+       },
+      {
+          "item": "thorium",
+          "amount": 700
+       },
+      {
+          "item": "lead",
+          "amount": 4500
+       }
+    ]
+  }
+}
