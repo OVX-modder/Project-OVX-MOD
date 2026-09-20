@@ -1,10 +1,10 @@
-localizedName: Silvex
+localizedName: sumthin
 alwaysUnlocked: false
 mesh: [
  {
     //valleys 
     type: NoiseMesh
-    planet: silvex
+    planet: sumthin
     divisions: 5
     seed: 36
     radius: 0.25
@@ -16,7 +16,7 @@ mesh: [
   {
     //hills
     type: NoiseMesh
-    planet: silvex
+    planet: sumthin
     divisions: 5
     radius: 0.24
     seed: 28
