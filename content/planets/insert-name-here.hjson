@@ -50,4 +50,4 @@ clearSectorOnLose: true
 allowWaves: false
 prebuildBase: false
 parent: new-sun-name
-solarSystem: new-system-name
+solarSystem: new-sun-name
