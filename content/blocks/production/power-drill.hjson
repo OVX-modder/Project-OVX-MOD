@@ -1,0 +1,41 @@
+      type: Drill
+      name: "Power Drill"
+      description: "It a Power Drill"
+        size: 3
+        tier: 6
+        rotateSpeed: 7
+        drillTime: 60
+        warmupSpeed: 0.08
+        drillEffect: mine
+        hardnessDrillMultiplier: 5
+         hasLiquids: true
+         hasPower: true
+         liquidCapacity: 60
+           consumes: {
+             power: 3
+               liquid: {
+                 liquid: cryofluid
+                 amount: 0.033333
+                 optional: true
+                 booster: true
+              }
+      }
+
+      requirements: [
+        copper/400
+        lead/350
+       graphite/250
+       titanium/100
+ ]
+
+     category: production
+
+      research: {
+         parent: laser-drill
+         requirements: [
+         copper/5000
+         lead/4500
+         graphite/3000
+         titanium/2500
+     ]
+ }
