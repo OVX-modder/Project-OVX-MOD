@@ -11,10 +11,10 @@ mesh: {
     colorScale: 1
     colors: [
       ffffff
-      c1dce3
-      b1e5f2
-      4ef7fc
-      6dc2cf
+      a31c1c
+      d44e4e
+      f01111
+      ad7979
     ]
 }
 accessible: false
