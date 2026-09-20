@@ -1,7 +1,7 @@
 localizedName: Sun
 mesh: {
     type: SunMesh
-    divisions: 7
+    divisions: 3
     radius: 0.5
     octaves: 5
     persistence: 0.3
