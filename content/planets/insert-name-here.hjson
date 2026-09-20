@@ -49,5 +49,5 @@ allowWaveSimulation: false
 clearSectorOnLose: true
 allowWaves: false
 prebuildBase: false
-parent: serpulo
-solarSystem: sun
+parent: new-sun-name
+solarSystem: new-system-name
