@@ -4,5 +4,5 @@ itemDrop: chromium
 varients: 1
 wallOre: false
 oreDefault: true
-oreScale: 7.5
-oreThreshold: 0.885
+oreScale: 8.5
+oreThreshold: 0.875
