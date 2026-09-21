@@ -1,0 +1,8 @@
+{
+  "type": "material",
+  "name": "Quartz",
+  "color": "e0e8f9",
+  "cost": 2.0,
+  "hardness": 3,
+  "alwaysUnlocked": false
+}
