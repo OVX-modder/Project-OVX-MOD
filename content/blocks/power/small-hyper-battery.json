@@ -1,0 +1,30 @@
+{
+  "type": "Battery",
+  "name": "hyper-battery-small",
+  "localizedName": "Hyper Battery (small)
+  "size": 1,
+  "health": 250,
+  "consumes": {
+    "powerBuffered": 9000
+  },
+  "flammability": 1.5,
+  "explosiveness": 0.8,
+  "explosionRadius": 3,
+  "explosionDamage": 50,
+  "requirements": [
+    "lithium/15",
+    "silicon/20",
+    "lead/30",
+    "copper/40"
+  ],
+  "category": "power",
+  "research": {
+    "parent": "large-battery",
+    "requirements": [
+      "silicon/3000",
+      "lead/4000",
+      "lithium/2000",
+      "copper/6000"
+    ]
+  }
+}

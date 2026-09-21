@@ -1,0 +1,34 @@
+{
+  "type": "Battery",
+  "name": "hyper-battery-large",
+  "description": "Stores a massive reserve of electrical power for large-scale bases. Extreme volatility makes it a catastrophic fire hazard if breached by enemies, it also reinforced with titanium",
+  "localizedName": "Hyper Battery (Large)
+  "health": 2400,
+  "size": 3,
+  "consumes": {
+    "powerBuffered": 1000000
+  },
+  "flammability": 2.0,
+  "explodeOnDestroy": true,
+  "explosionRadius": 6,
+  "explosionDamage": 150,
+  "requirements": [
+    "lithium/50",
+    "silicon/100",
+    "metaglass/50",
+    "surge-alloy/10",
+    "titanium/20"
+  ],
+  "category": "power",
+  "research": {
+    "parent": "hyper-battery-small",
+    "requirements": [
+      "silicon/3000",
+      "lead/5000",
+      "lithium/6000",
+      "surge-alloy/2000",
+      "metaglass/3000",
+      "titanium/4000"
+    ]
+  }
+}
