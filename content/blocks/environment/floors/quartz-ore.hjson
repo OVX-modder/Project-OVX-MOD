@@ -1,5 +1,8 @@
-type: oreBlock
-name: Quartz Ore
+type: OreBlock
+localizedName: quartz ore
 itemDrop: quartz
-varients: 1
+variants: 3
+oreDefault: true
+oreScale: 7.5
+oreThreshold: 0.895
 wallOre: false
