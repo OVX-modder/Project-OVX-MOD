@@ -31,16 +31,18 @@ craftEffect: {
   type: RadialEffect
   effect: {
     type: ParticleEffect
-    length: 8
-    colorFrom: f2f0e9ff
+    length: 12
+    colorFrom: a1987fff
     colorTo: e6debe11
     sizeFrom: 0
-    sizeTo: 7
+    sizeTo: 4
     interp: circleOut
     sizeInterp: pow5Out
     cone: 4
   }
   rotationSpacing: 90
-  lengthOffset: 8
-  amount: 4
+  lengthOffset: 16
+  amount: 16
+  lifetime: 100
+  
 }
