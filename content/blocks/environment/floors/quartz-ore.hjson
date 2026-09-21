@@ -1,0 +1,5 @@
+type: oreBlock
+name: Quartz Ore
+itemDrop: quartz
+varients: 1
+wallOre: false
