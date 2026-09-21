@@ -4,7 +4,7 @@ category: crafting
 size: 4
 health: 740
 craftTime: 190
-heatRequirement: 50
+heatRequirement: 20
 overheatScale: 0.5
 maxEfficiency: 1.5
 liquidCapacity: 30
@@ -19,7 +19,7 @@ consumes: {
   ]
   liquid: {
     liquid: water
-    amount: 10
+    amount: 0.1666666666666666
   }
 }
 requirements: [
