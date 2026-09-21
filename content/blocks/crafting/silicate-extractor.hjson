@@ -1,11 +1,9 @@
 name: Silicate Extractor
-type: heatCrafter
+type: genericCrafter
 category: crafting
 size: 4
 health: 740
 craftTime: 190
-heatRequirement: 20
-overheatScale: 0.5
 maxEfficiency: 1.5
 liquidCapacity: 30
 outputItems: [
