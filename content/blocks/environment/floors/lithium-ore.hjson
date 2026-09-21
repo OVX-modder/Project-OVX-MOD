@@ -1,0 +1,10 @@
+{
+  type: OreBlock
+  localizedName: lithium ore
+  item: lithium
+  itemDrop: lithium
+  variants: 3
+  oreScale: 10.0
+  oreThreshold: 0.88
+  oreDefault: true
+}
