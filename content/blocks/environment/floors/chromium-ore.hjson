@@ -1,0 +1,5 @@
+type: oreBlock
+name: Chromium Ore
+itemDrop: chromium
+varients: 1
+wallOre: false
