@@ -31,7 +31,7 @@ craftEffect: {
   type: RadialEffect
   effect: {
     type: ParticleEffect
-    length: 12
+    length: 14
     colorFrom: a1987fff
     colorTo: e6debe11
     sizeFrom: 0
@@ -41,7 +41,7 @@ craftEffect: {
     cone: 4
   }
   rotationSpacing: 90
-  lengthOffset: 16
+  lengthOffset: 4
   amount: 16
   lifetime: 100
   
