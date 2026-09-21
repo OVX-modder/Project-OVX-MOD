@@ -14,9 +14,9 @@ outputItems: [
 ]
 consumes: {
   power: 1
-  items: {
+  items: [
     quartz/4
-  }
+  ]
   liquid: {
     liquid: water
     amount: 10
