@@ -1,0 +1,46 @@
+name: Silicate Extractor
+type: heatCrafter
+category: crafting
+size: 4
+health: 740
+craftTime: 190
+heatRequirement: 50
+overheatScale: 0.5
+maxEfficiency: 1.5
+liquidCapacity: 30
+outputItems: [
+  sand/6
+  silicon/3
+]
+consumes: {
+  power: 1
+  items: {
+    quartz/4
+  }
+  liquid: {
+    liquid: water
+    amount: 10
+  }
+}
+requirements: [
+  metaglass/170
+  tungsten/50
+  chromium/75
+]
+craftEffect: {
+  type: RadialEffect
+  effect: {
+    type: ParticleEffect
+    length: 8
+    colorFrom: f2f0e9ff
+    colorTo: e6debe11
+    sizeFrom: 0
+    sizeTo: 7
+    interp: circleOut
+    sizeInterp: pow5Out
+    cone: 4
+  }
+  rotationSpacing: 90
+  lengthOffset: 8
+  amount: 4
+}
