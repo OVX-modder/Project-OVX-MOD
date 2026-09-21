@@ -1,0 +1,10 @@
+{
+  "name": "lithium",
+  "charge": 1.5,
+  "cost": 1.2,
+  "color": "99ccff",
+  "flammability": 1.5,
+  "explosiveness": 0.8,
+  "radioactivity": 0.0,
+  "hardness": 3
+}
