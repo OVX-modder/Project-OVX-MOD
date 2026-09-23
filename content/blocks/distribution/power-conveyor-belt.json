@@ -12,6 +12,7 @@
   "displayedSpeed": 0.2,
   
   "solid": false,
+  "drawStatus": false,
   "floating": false,
   "hasPower": true,
   "conductivePower": true,
