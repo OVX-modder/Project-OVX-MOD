@@ -1,0 +1,7 @@
+type: liquid
+gas: true
+viscosity: 0.5
+heatCapacity: 0.5
+temperature: 0.75
+barColor: c4c3be
+gasColor: e0dfdc
