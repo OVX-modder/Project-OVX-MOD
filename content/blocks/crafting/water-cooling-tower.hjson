@@ -1,8 +1,10 @@
 type: genericCrafter
 category: crafting
+hasLiquids: true
 craftTime: 1
 outputLiquid: water/1
 input: {
+  power: 2
   liquid: [
     liquid: boiling-water
     amount: 1
