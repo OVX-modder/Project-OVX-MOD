@@ -95,7 +95,7 @@ arcFurnace.buildType = prov(() => extend(GenericCrafter.GenericCrafterBuild, arc
     }
 }));
 
-arcFurnace.name = "test-mod-arc-furnace";
+arcFurnace.name = "ovx-project-mod-arc-furnace";
 arcFurnace.localizedName = "Arc Furnace";
 arcFurnace.description = "make stainless steel materials using massive amounts of power. Vent steam carefully to avoid pressure explosions.";
 arcFurnace.size = 3;
