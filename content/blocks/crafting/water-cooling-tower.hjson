@@ -1,0 +1,15 @@
+type: genericCrafter
+category: crafting
+craftTime: 1
+outputLiquid: water/1
+input: {
+  liquid: [
+    liquid: boiling-water
+    amount: 1
+  ]
+}
+requirements: [
+  graphite: 70
+  metaglass: 140
+  titanium: 30
+]
