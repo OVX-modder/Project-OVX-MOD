@@ -32,7 +32,7 @@ const arcFurnace = extend(GenericCrafter, "arc-furnace", {
             this.outputItem = new ItemStack(stainlessSteel, 1);
         }
         if (steam != null) {
-            this.outputLiquid = new LiquidStack(steam, 0.2); 
+            this.outputLiquid = new LiquidStack(steam, 23 / 60); 
         }
 
         this.hasItems = true;
