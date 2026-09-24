@@ -2,7 +2,7 @@
   "type": "Battery",
   "name": "hyper-battery-large",
   "description": "Stores a massive reserve of electrical power for large-scale bases. Extreme volatility makes it a catastrophic fire hazard if breached by enemies, it also reinforced with titanium",
-  "localizedName": "Hyper Battery (Large)
+  "localizedName": "Hyper Battery (Large)",
   "health": 2400,
   "size": 3,
   "consumes": {

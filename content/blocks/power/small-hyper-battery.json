@@ -1,7 +1,7 @@
 {
   "type": "Battery",
   "name": "hyper-battery-small",
-  "localizedName": "Hyper Battery (small)
+  "localizedName": "Hyper Battery (small)",
   "size": 1,
   "health": 250,
   "consumes": {

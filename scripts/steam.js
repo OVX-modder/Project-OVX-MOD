@@ -7,4 +7,4 @@ steam.gasColor = Color.valueOf("83c7ff80");
 
 steam.name = "Steam";
 steam.localizedName = "Steam";
-steam.description = "it a steam, come from heated water.";
+steam.description = "It is steam, and comes from heated water.";

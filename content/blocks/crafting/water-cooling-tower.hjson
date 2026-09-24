@@ -3,14 +3,16 @@ category: crafting
 size: 3
 hasLiquids: true
 craftTime: 1
-outputLiquid: water/0.9
+outputLiquid: water/0.15
+
 input: {
   power: 2
   liquid: [
-    liquid: boiling-water
-    amount: 1
+    liquid: steam
+    amount: 0.25
   ]
 }
+
 drawer: {
   type: DrawMulti
   drawers: [
@@ -41,7 +43,7 @@ drawer: {
   ]
 }
 requirements: [
-  graphite: 70
-  metaglass: 140
-  titanium: 30
+  graphite/ 70
+  metaglass/ 140
+  titanium/ 30
 ]

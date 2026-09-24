@@ -1,0 +1,45 @@
+type: ConsumeGenerator
+name: Steam Turbine
+description: Uses pumped steam to create energy
+size: 2
+category: power
+research: {
+  parent: mycelium-burner
+}
+
+requirements: [
+  lithium/40
+  stainless-steel/100
+]
+
+consumes: {
+  liquid: {
+    liquid: steam
+    amount: 0.5
+  }
+}
+
+liquidCapacity: 450
+
+powerProduction: 5
+itemDuration: 800
+generateEffect: generatespark
+
+researchCostMultiplier: 0.5
+
+drawer:[
+  {
+    type: DrawRegion
+    suffix: -base
+  }
+  {
+    type: DrawRegion
+    spinSprite: true
+    suffix: -spin
+    rotateSpeed:2
+  }
+  {
+    type:DrawRegion
+    suffix: -cover
+  }
+]
