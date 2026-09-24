@@ -1,0 +1,70 @@
+{
+  "type": "GenericCrafter",
+  "name": "Turbine Condenser",
+  "localizedName": "Turbine Condenser",
+  "description": "Reclaims used steam power and condenses it back into pure, reusable water.",
+  "category": "crafting",
+  "size": 4,
+  "health": 220,
+  "hasLiquids": true,
+  "hasPower": true,
+  "hasShadow": false,
+  "liquidCapacity": 60,
+  "dumpExtraLiquid": true,
+  "craftTime": 30,
+  "warmupSpeed": 0.0033,
+  "updateEffect": "vapor",
+  "updateEffectChance": 0.05,
+  "drawer": {
+    "type": "DrawMulti",
+    "drawers": [
+      {
+        "type": "DrawRegion",
+        "suffix": "-bg"
+      },
+      {
+        "type": "DrawLiquidRegion",
+        "drawLiquid": "water",
+        "suffix": "-water"
+      },
+      {
+        "type": "DrawBlurSpin",
+        "suffix": "-fan",
+        "rotateSpeed": 25,
+        "blurThresh": 999
+      },
+      {
+        "type": "DrawRegion",
+        "suffix": "-top"
+      }
+    ]
+  },
+
+  "outputLiquid": {
+    "liquid": "water",
+    "amount": 2.9
+  },
+  "consumes": {
+    "liquids": [
+      { 
+        "liquid": "steam",
+        "amount": 3.0
+      }
+    ],
+    "power": 1.0
+  },
+  "requirements": [
+    { "item": "copper", "amount": 35 },
+    { "item": "lead", "amount": 25 },
+    { "item": "metaglass", "amount": 15 }
+  ],
+  "research": {
+    "parent": "arc-furnace",
+    "requirements": [
+      { "item": "copper", "amount": 7000 },
+      { "item": "lead", "amount": 6000 },
+      { "item": "metaglass", "amount": 3000 },
+      { "item": "silicon", "amount": 2000 }
+    ]
+  }
+}
