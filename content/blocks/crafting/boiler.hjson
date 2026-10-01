@@ -1,0 +1,34 @@
+type: GenericCrafter
+name: Boiler
+description: Heats water using coal to generate steam.
+size: 2
+category: crafting
+requirements: [
+  copper/50
+  lead/40
+  metaglass/20
+]
+craftTime: 60
+craftEffect: steam
+consumes: {
+  items: [
+    coal/1
+  ]
+  liquids: [
+    water/0.2
+  ]
+}
+outputLiquid: steam/0.3
+liquidCapacity: 60
+itemCapacity: 10
+research: {
+  parent: steam-turbine
+  requirements: [
+    copper/10000
+    lead/8000
+    metaglass/4000
+  ]
+}
+drawer: {
+  type: DrawDefault
+}
