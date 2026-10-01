@@ -1,0 +1,63 @@
+{
+    "type": "ImpactReactor",
+    "name": "nuclear-reactor",
+    "localizedName": "Nuclear Reactor",
+    "description": "Massive 7x7 reactor. Burns fuel capsules for power. Water-cooled — meltdown if coolant runs dry.",
+    "size": 7,
+    "health": 8000,
+    "itemCapacity": 20,
+    "liquidCapacity": 300,
+
+    "itemDuration": 480,
+    "powerProduction": 12564,
+    "warmupSpeed": 0.0005,
+
+    "category": "power",
+    "buildVisibility": "shown",
+
+    "drawer": {
+        "type": "DrawMulti",
+        "drawers": [
+            {
+                "type": "DrawRegion",
+                "suffix": "-bg"
+            },
+            {
+                "type": "DrawPlasma",
+                "suffix": "-energy-",
+                "plasmas": 4,
+                "plasma1": "00f0ff",
+                "plasma2": "0088ff"
+            },
+            {
+                "type": "DrawGlowRegion",
+                "suffix": "-glow",
+                "color": "8795FF"
+            },
+            {
+                "type": "DrawRegion",
+                "suffix": "-cover"
+            }
+        ]
+    },
+
+    "consumes": {
+        "power": 95,
+        "items": {
+            "items": [
+                { "item": "fuel-capsule", "amount": 1 }
+            ]
+        },
+        "liquid": { "liquid": "water", "amount": 1.5 }
+    },
+
+    "requirements": [
+        { "item": "copper",         "amount": 3500 },
+        { "item": "lead",           "amount": 3000 },
+        { "item": "thorium",        "amount": 2000 },
+        { "item": "surge-alloy",    "amount": 1500 },
+        { "item": "silicon",        "amount": 1200 },
+        { "item": "plastanium",     "amount": 800  },
+        { "item": "phase-fabric",   "amount": 600  }
+    ]
+}
