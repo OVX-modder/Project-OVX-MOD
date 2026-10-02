@@ -59,7 +59,7 @@
     { "item": "metaglass", "amount": 15 }
   ],
   "research": {
-    "parent": "arc-furnace",
+    "parent": "boiler",
     "requirements": [
       { "item": "copper", "amount": 7000 },
       { "item": "lead", "amount": 6000 },

@@ -1,0 +1,13 @@
+{
+  "name": "Fuel Capsule",
+  "description": "High-density nuclear fuel cell encased in heavy lead shielding. Used to power massive thermal reactors.",
+  "color": "e2ba6e",
+  "explosiveness": 0.6,
+  "flammability": 0.2,
+  "radioactivity": 1.8,
+  "charge": 0.0,
+  "cost": 2.5,
+  "research": {
+    "parent": "thorium"
+  }
+}
