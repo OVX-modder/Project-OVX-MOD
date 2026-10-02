@@ -1,0 +1,8 @@
+name: Immolate
+localizedName : Immolate
+description: "--mortem inimicis meis--"
+speed: 2
+flying: true
+health: 16000
+engineOffset: 5.5
+range: 160

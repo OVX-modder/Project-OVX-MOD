@@ -1,0 +1,24 @@
+type: flying
+name: Cinder
+description: "Explodes in a blaze of fire"
+speed: 5
+flying: true
+health: 250
+engineOffset: 5.5
+range: 5
+weapons: [{
+    shootOnDeath:true;
+    inaccuracy:360
+    x:0,
+    y:0.75,
+    rotate:false
+    shoot: {
+        shots: 45
+        shotDelay: 0.1
+    }   
+    bullet: {
+        type: FireBulletType
+        killShooter:true
+        dmg:10
+    }
+}]

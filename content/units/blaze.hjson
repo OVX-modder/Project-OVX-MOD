@@ -1,0 +1,30 @@
+type: flying
+name: Blaze
+description: "Indiscriminatly burns the ground"
+speed: 3.5
+flying: true
+health: 1350
+engineOffset: 5.5
+range: 240
+faceTarget:false
+weapons: [{
+    name:dragon-cannon
+    inaccuracy:5
+    x:0,
+    y:1,
+    rotate:true
+    reload:2
+    recoil:0.2
+    mirror:false
+    bullet: {
+        type: FireBulletType
+        velMin:4
+        velMax:6
+        speed:3
+        lifetime:50
+        dmg:30
+        collidesTeam:true
+        collidesAir:false
+        collidesGround:true
+    }
+}]

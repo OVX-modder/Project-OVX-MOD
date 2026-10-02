@@ -1,0 +1,9 @@
+name: Incinerate
+localizedName : Incinerate
+description: Raze the earth with fireballs
+speed: 2
+flying: true
+health: 6400
+engineOffset: 5.5
+range: 160
+faceTarget:false
