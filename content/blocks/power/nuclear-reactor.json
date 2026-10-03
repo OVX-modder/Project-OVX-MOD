@@ -9,8 +9,14 @@
     "liquidCapacity": 300,
 
     "itemDuration": 480,
-    "powerProduction": 12564,
+    "powerProduction": 1333.33,
     "warmupSpeed": 0.0005,
+
+    "ambientSound": "pulse",
+    "ambientSoundVolume": 0.15,
+
+    "explodeSound": "explosionReactor2",
+    "explodeSoundVolume": 1.0,
 
     "category": "power",
     "buildVisibility": "shown",
@@ -18,10 +24,7 @@
     "drawer": {
         "type": "DrawMulti",
         "drawers": [
-            {
-                "type": "DrawRegion",
-                "suffix": "-bg"
-            },
+            { "type": "DrawRegion", "suffix": "-bg" },
             {
                 "type": "DrawPlasma",
                 "suffix": "-energy-",
@@ -34,10 +37,7 @@
                 "suffix": "-glow",
                 "color": "8795FF"
             },
-            {
-                "type": "DrawRegion",
-                "suffix": "-cover"
-            }
+            { "type": "DrawRegion", "suffix": "-cover" }
         ]
     },
 
@@ -48,7 +48,11 @@
                 { "item": "fuel-capsule", "amount": 1 }
             ]
         },
-        "liquid": { "liquid": "water", "amount": 1.5 }
+        "liquid": {
+            "liquid": "water",
+            "amount": 2,
+            "optional": true
+        }
     },
 
     "requirements": [

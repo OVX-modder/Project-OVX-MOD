@@ -1,44 +1,107 @@
-// ═════════════════════════
-//  Nuclear Reactor Meltdown System
-// ═════════════════════════
 
-// the nuclear reactor block and it consumer item
+
 var BLOCK_NAME = "ovx-project-mod-nuclear-reactor";
 var FUEL_NAME  = "ovx-project-mod-fuel-capsule";
 
-// meltdowns mode (lol)
-var HEAT_RATE   = 0.006;
-var SMOKE_AT    = 0.2;
-var FLASH_AT    = 0.5;
+var HEAT_RATE   = 0.00238;
+var SMOKE_AT    = 0.15;
+var FLASH_AT    = 0.40;
+var ALARM_AT    = 0.10;
 var EXPLODE_AT  = 1.0;
 
-var BLAST_RADIUS = 480;    // 60 block ranges
-var BLAST_DAMAGE = 2500;   // 0-2500 damage
+var BLAST_RADIUS = 480;
+var BLAST_DAMAGE = 2500;
 
-// Screen flash constants, make sure your room is not dark
 var FLASH_DURATION = 180;
-var NEAR_RADIUS    = 80;    // 10 tiles
-var FLASH_MAX_DIST = 800;   // 100 tiles
+var NEAR_RADIUS    = 80;
+var FLASH_MAX_DIST = 800;
 var FLASH_MIN_PEAK = 0.0;
 
-// Screen shake
 var SHAKE_INTENSITY = 50;
 var SHAKE_DURATION  = 4;
 
-// shockwaves ring 💍 
 var SHOCK_DURATION = 240;
 var SHOCK_MAX_R    = 2800;
 
-var heatMap    = {};
-var flashStart = -1;
-var flashPeak  = 0;
-var shockStart = -1;
-var shockX     = 0;
-var shockY     = 0;
+var RANGE_ALARM    = 45;
+var DURATION_ALARM = 420;
 
-var flashRegion = null;
+var alarmPlaying = {};
+var heatMap      = {};
+var flashStart   = -1;
+var flashPeak    = 0;
+var shockStart   = -1;
+var shockX       = 0;
+var shockY       = 0;
+var flashRegion  = null;
 
-// FX helper I forgot what this does well who knows 
+var lastPlayTime = {
+    "reactor-alarm": -9999
+};
+
+function playSoundFresh(relativePath) {
+    var mod = null;
+    try { mod = Vars.mods.getMod("ovx-project-mod"); } catch (e) { return; }
+    if (!mod || !mod.root) return;
+
+    try {
+        var f = mod.root.child("sounds/" + relativePath + ".ogg");
+        if (!f.exists()) return;
+        var s = new Sound(f);
+        try { s.load(); } catch (e) {}
+        try { s.play(); } catch (e) {}
+    } catch (e) {}
+}
+
+function playSoundOnce(relativePath, x, y, maxTiles, durationTicks) {
+    var now = Vars.state.tick;
+
+    var last = lastPlayTime[relativePath] || -9999;
+    if (now - last < durationTicks) return;
+
+    var px = 0, py = 0;
+    try {
+        px = Vars.player.x;
+        py = Vars.player.y;
+    } catch (e) { return; }
+
+    var dx = x - px;
+    var dy = y - py;
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    var maxPx = maxTiles * 8;
+    if (dist > maxPx) return;
+
+    var t = dist / maxPx;
+    var closeness = 1 - t;
+    closeness = closeness * closeness;
+    if (Math.random() > closeness) return;
+
+    playSoundFresh(relativePath);
+    lastPlayTime[relativePath] = now;
+}
+
+Events.on(ContentInitEvent, function() {
+    try {
+        flashRegion = Core.atlas.find("ovx-meltdown-flash");
+        if (flashRegion == null || !flashRegion.found()) {
+            flashRegion = null;
+        }
+    } catch (e) {
+        flashRegion = null;
+    }
+});
+
+Events.on(WorldLoadEvent, function() {
+    alarmPlaying = {};
+    heatMap      = {};
+    flashStart   = -1;
+    flashPeak    = 0;
+    shockStart   = -1;
+    lastPlayTime = {
+        "reactor-alarm": -9999
+    };
+});
+
 function tryFx(name, x, y) {
     try {
         var fx = Fx[name];
@@ -51,43 +114,17 @@ function damageAllUnits(x, y, radius, damage) {
         if (u == null) return;
         if (u.dead) return;
         if (u.health <= 0) return;
-
         var dx = u.x - x;
         var dy = u.y - y;
         var dist = Math.sqrt(dx * dx + dy * dy);
         var hitR = radius + (u.hitSize / 2);
         if (dist > hitR) return;
-
         var falloff = 1 - (dist / hitR);
         if (falloff < 0) falloff = 0;
-
         u.damagePierce(damage * falloff);
     });
 }
 
-Events.on(ContentInitEvent, function () {
-    try {
-        flashRegion = Core.atlas.find("ovx-meltdown-flash");
-        if (flashRegion == null || !flashRegion.found()) {
-            flashRegion = null;
-            print("[OVX] meltdown-flash sprite not found — using fallback rect");
-        } else {
-            print("[OVX] meltdown-flash sprite loaded");
-        }
-    } catch (e) {
-        flashRegion = null;
-    }
-});
-
-// Reset on map load so no 🐛 🪲 
-Events.on(WorldLoadEvent, function() {
-    heatMap    = {};
-    flashStart = -1;
-    flashPeak  = 0;
-    shockStart = -1;
-});
-
-//  Meltdown watcher, it watch the reactor
 Events.run(Trigger.update, function() {
     if (!Vars.state.isGame()) return;
     if (Vars.state.isPaused()) return;
@@ -99,6 +136,7 @@ Events.run(Trigger.update, function() {
         if (b.block.name !== BLOCK_NAME) return;
         if (!b.liquids) return;
 
+        // Fuel check
         var fuelCount = 0;
         if (fuelItem && b.items) {
             try { fuelCount = b.items.get(fuelItem); } catch (e) { fuelCount = 0; }
@@ -106,18 +144,28 @@ Events.run(Trigger.update, function() {
 
         if (fuelCount <= 0) {
             heatMap[b.id] = 0;
+            alarmPlaying[b.id] = false;
             return;
         }
 
+        // Water check
         var water = b.liquids.get(Liquids.water);
-        if (water > 0.5) {
+        if (water > 0.1) {
             heatMap[b.id] = 0;
+            alarmPlaying[b.id] = false;
             return;
         }
 
+        // Heat rises
         var heat = (heatMap[b.id] || 0) + HEAT_RATE;
         if (heat > EXPLODE_AT) heat = EXPLODE_AT;
         heatMap[b.id] = heat;
+
+        // Alarm — plays once when heating starts
+        if (heat >= ALARM_AT && !alarmPlaying[b.id]) {
+            playSoundOnce("reactor-alarm", b.x, b.y, RANGE_ALARM, DURATION_ALARM);
+            alarmPlaying[b.id] = true;
+        }
 
         if (heat >= FLASH_AT) {
             if (Vars.state.tick % 10 === 0) tryFx("explosion", b.x, b.y);
@@ -125,18 +173,18 @@ Events.run(Trigger.update, function() {
             if (Vars.state.tick % 8 === 0) tryFx("smoke", b.x, b.y);
         }
 
+        // Meltdown
         if (heat >= EXPLODE_AT) {
             doMeltdown(b);
             heatMap[b.id] = 0;
+            alarmPlaying[b.id] = false;
         }
     });
 });
 
-//  Shockwaves
 function spawnShockwaves(x, y) {
     tryFx("nuclearShockwave", x, y);
     tryFx("impactWave", x, y);
-    tryFx("nuclearShockwave", x, y);
 
     var stages = [
         60, 120, 200, 300, 420, 560, 720, 900,
@@ -158,12 +206,9 @@ function spawnShockwaves(x, y) {
     }
 }
 
-//  Meltdown
 function doMeltdown(b) {
     b.damage(9999);
-
     Damage.damage(b.x, b.y, BLAST_RADIUS, BLAST_DAMAGE);
-
     damageAllUnits(b.x, b.y, BLAST_RADIUS, BLAST_DAMAGE);
 
     tryFx("nuclearSmoke",     b.x, b.y);
@@ -226,9 +271,7 @@ function doMeltdown(b) {
     shockY     = b.y;
 }
 
-//  Draw
 Events.run(Trigger.draw, function() {
-
     if (shockStart >= 0) {
         var se = Vars.state.tick - shockStart;
         if (se >= SHOCK_DURATION) {
@@ -295,5 +338,3 @@ Events.run(Trigger.draw, function() {
         });
     } catch (e) {}
 });
-
-print("[OVX] reactor-meltdown.js loaded");
