@@ -1,0 +1,75 @@
+{
+    "type": "ItemTurret",
+    "name": "atomic-lance",
+    "localizedName": "Atomic Lance",
+    "description": "what am I supposed to say?",
+
+    "size": 5,
+    "health": 6000,
+    "range": 480,
+    "reload": 1800,
+    "inaccuracy": 0,
+    "shootCone": 3,
+    "recoil": 22,
+    "rotateSpeed": 2,
+    "shootShake": 15,
+    "itemCapacity": 20,
+
+    "targetAir": false,
+    "targetGround": true,
+    "hasLiquids": true,
+    "liquidCapacity": 150,
+
+    "category": "turret",
+    "buildVisibility": "shown",
+
+    "ammoTypes": {
+        "fuel-capsule": {
+            "type": "ArtilleryBulletType",
+            "damage": 4000,
+            "splashDamage": 15000,
+            "splashDamageRadius": 320,
+            "speed": 3.5,
+            "lifetime": 160,
+            "width": 36,
+            "height": 42,
+            "hitEffect": "reactorExplosion",
+            "shootEffect": "shootBig2",
+            "smokeEffect": "shootBigSmoke2",
+            "despawnEffect": "reactorExplosion",
+            "hitSound": "explosionReactor2",
+            "knockback": 25,
+            "hitShake": 30,
+            "despawnShake": 30,
+            "ammoMultiplier": 1
+        }
+    },
+
+    "consumes": {
+        "power": 0.2,
+        "coolant": { "amount": 0.4, "optional": true }
+    },
+
+    "requirements": [
+        { "item": "copper",         "amount": 1500 },
+        { "item": "lead",           "amount": 1000 },
+        { "item": "thorium",        "amount": 900 },
+        { "item": "surge-alloy",    "amount": 200 },
+        { "item": "silicon",        "amount": 600 },
+        { "item": "stainless-steel","amount": 800  }
+    ],
+
+   "research": {
+    "parent": "meltdown",
+    "requirements": [
+        { "item": "copper",         "amount": 10000 },
+        { "item": "lead",           "amount": 8000  },
+        { "item": "thorium",        "amount": 6000  },
+        { "item": "surge-alloy",    "amount": 4000  },
+        { "item": "silicon",        "amount": 3000  },
+        { "item": "plastanium",     "amount": 2000  },
+        { "item": "phase-fabric",   "amount": 1500  },
+        { "item": "stainless-steel","amount": 1000  }
+    ]
+}
+}
