@@ -1,10 +1,10 @@
-localizedName: sumthin
+localizedName: Carcosa
 alwaysUnlocked: true
 mesh: [
  {
     //valleys 
     type: NoiseMesh
-    planet: sumthin
+    planet: Carcosa
     divisions: 5
     seed: 36
     radius: 0.25
@@ -16,7 +16,7 @@ mesh: [
   {
     //hills
     type: NoiseMesh
-    planet: sumthin
+    planet: Carcosa
     divisions: 5
     radius: 0.24
     seed: 28
