@@ -15,6 +15,5 @@
     "requirements": [
       { "item": "ovx-project-mod-chromium", "amount": 160 }
     ]
-  },
-   "shownPlanets": [ "ovx-project-mod-vulkar" ]
+  }
 }
