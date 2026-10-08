@@ -1,0 +1,37 @@
+localizedName: Hastur
+mesh: {
+    type: SunMesh
+    divisions: 7
+    radius: 20
+    octaves: 5
+    persistence: 0.3
+    scl: 3
+    pow: 1.6
+    mag: 1.25
+    colorScale: 0.8
+    colors: [
+      ffff00
+      ffee00
+      eeee00
+      eedd00
+      dddd00
+      ddcc00
+      cccc00
+      ccbb00
+      bbbb00
+      444400
+      444400
+      000000
+    ]
+}
+accessible: false
+alwaysUnlocked: true
+visible: true
+hasAtmosphere: false
+bloom: true
+orbitSpacing: 0.5
+solarSystem: hastur
+radius: 20
+drawOrbit: false
+parent: sun
+orbitRadius: 12000

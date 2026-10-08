@@ -1,0 +1,61 @@
+localizedName: Carcosa
+alwaysUnlocked: true
+mesh: [
+ {
+    //ground
+    type: NoiseMesh
+    planet: carcosa
+    divisions: 7
+    seed: 24
+    radius: 0.435
+    color: 333333
+    octaves: 5
+    mag: 2
+    persistence: 0.8
+  },
+  {
+    type: SunMesh
+    planet: carcosa
+    divisions: 8
+    octaves: 5
+    persistence: 0.5
+    scl: 3
+    pow: 1.6
+    mag: 1.25
+    colorScale: 0.8
+    colors: [
+      ffbb00
+      ff8800
+      ff6600
+      ff4400
+      ff2200
+      ff0000
+    ]
+}
+  
+]
+sectorSize: 0.24
+allowLaunchSchematics: false
+allowLaunchToNumbered: false
+allowLaunchLoadout: false
+allowSectorInvasion: false
+startSector: 0
+orbitSpacing: 0.2
+orbitRadius: 100
+orbitTime: 0.2
+radius: 0.5
+minZoom: 1
+maxZoom: 1.5
+drawOrbit: true
+accessible: true
+updateLighting: true
+sectorSeed: 14513
+bloom: false
+visible: true
+hasAtmosphere: false
+allowWaveSimulation: false
+clearSectorOnLose: true
+allowWaves: false
+prebuildBase: false
+parent: hastur
+solarSystem: hastur
