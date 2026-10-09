@@ -1,0 +1,19 @@
+type: PowerNode
+name: Small Power Hub
+size:1
+category: power
+
+
+squareSprite: false
+
+requirements: [
+  lithium/3
+  copper/5
+]
+
+laserRange : 10
+
+laserColor1: 444444
+laserColor2: 333333
+
+maxNodes: 8
