@@ -1,0 +1,19 @@
+{
+  "type": "Wall",
+  "name": "chromium-wall-large",
+  "localizedName": "Chromium Wall Large",
+  "description": "A sturdy wall made of chromium.",
+  "size": 2,
+  "health": 2100,
+  "category": "defense",
+  "buildVisibility": "shown",
+  "requirements": [
+    { "item": "ovx-project-mod-chromium", "amount": 35 }
+  ],
+  "research": {
+    "parent": "graphite-press",
+    "requirements": [
+      { "item": "ovx-project-mod-chromium", "amount": 160 }
+    ]
+  }
+}
