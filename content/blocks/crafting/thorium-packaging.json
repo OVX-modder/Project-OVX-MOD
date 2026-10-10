@@ -1,7 +1,7 @@
 {
     "type": "GenericCrafter",
     "name": "thorium-packaging",
-    "localizedName": "Thorium Packaging",
+    "localizedName": "Thorium Packager",
     "size": 3,
     "health": 720,
     "hasItems": true,
