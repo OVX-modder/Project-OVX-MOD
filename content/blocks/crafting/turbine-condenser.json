@@ -1,8 +1,6 @@
 {
   "type": "GenericCrafter",
   "name": "Turbine Condenser",
-  "localizedName": "Turbine Condenser",
-  "description": "Reclaims used steam power and condenses it back into pure, reusable water.",
   "category": "crafting",
   "size": 4,
   "health": 220,
