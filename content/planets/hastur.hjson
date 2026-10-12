@@ -3,7 +3,7 @@ mesh: {
 mesh: {
   type: SunMesh
   planet: hastur
-  divisions: 7
+  divisions: 6
   radius: 20
   octaves: 5
   persistence: 0.3
@@ -27,7 +27,7 @@ mesh: {
   ]
 }
 accessible: false
-alwaysUnlocked: true
+alwaysUnlocked: false
 visible: true
 hasAtmosphere: false
 bloom: true
