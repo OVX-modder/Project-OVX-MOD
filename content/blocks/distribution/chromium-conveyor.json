@@ -1,0 +1,19 @@
+{
+  "type": "Conveyor",
+  "name": "chromium-conveyor",
+  "localizedName": "Chromium Conveyor",
+  "health": 90,
+  "speed": 0.042,
+  "displayedSpeed": 7.5,
+  "category": "distribution",
+  "buildVisibility": "shown",
+  "requirements": [
+    { "item": "chromium", "amount": 1 }
+  ],
+  "research": {
+    "parent": "chromium-drill",
+    "requirements": [
+      { "item": "chromium", "amount": 50 }
+    ]
+  }
+}

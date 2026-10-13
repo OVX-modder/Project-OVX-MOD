@@ -1,31 +1,33 @@
 localizedName: Hastur
 mesh: {
-    type: SunMesh
-    divisions: 7
-    radius: 20
-    octaves: 5
-    persistence: 0.3
-    scl: 3
-    pow: 1.6
-    mag: 1.25
-    colorScale: 0.8
-    colors: [
-      ffff00
-      ffee00
-      eeee00
-      eedd00
-      dddd00
-      ddcc00
-      cccc00
-      ccbb00
-      bbbb00
-      444400
-      444400
-      000000
-    ]
+mesh: {
+  type: SunMesh
+  planet: hastur
+  divisions: 6
+  radius: 20
+  octaves: 5
+  persistence: 0.3
+  scl: 3
+  pow: 1.6
+  mag: 1.25
+  colorScale: 0.8
+  colors: [
+    ffffff
+    eeffff
+    ccffff
+    aaefff
+    88ddff
+    66ccff
+    44bbff
+    22aaee
+    0088dd
+    0066bb
+    0055aa
+    0044aa
+  ]
 }
 accessible: false
-alwaysUnlocked: true
+alwaysUnlocked: false
 visible: true
 hasAtmosphere: false
 bloom: true
