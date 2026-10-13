@@ -12,9 +12,6 @@
     "powerProduction": 1333.33,
     "warmupSpeed": 0.0005,
 
-    "ambientSound": "pulse",
-    "ambientSoundVolume": 0.15,
-
     "explodeSound": "explosionReactor2",
     "explodeSoundVolume": 1.0,
 
