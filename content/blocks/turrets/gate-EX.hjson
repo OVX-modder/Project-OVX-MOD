@@ -1,0 +1,13 @@
+name: Gate-EX
+category:turret
+size : 2
+health: 100
+requirements: [
+    chromium/100
+    copper/200
+    lithium/80
+]
+rotate: true
+
+range: 160
+reload: 30

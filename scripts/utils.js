@@ -1,53 +1,44 @@
-
-
-function findNearest(source, searchFor, max_rad) {
-    let rad = max_rad;
+function findNearest(source, searchFor, max_rad, notThis) {
     let size = source.block.size;
 
     let centerX = source.tile.x;
     let centerY = source.tile.y;
 
-    let other_block = mindustry.core.byName(searchFor)
-
     let cornerX = centerX - (size - 1) / 2;
     let cornerY = centerY - (size - 1) / 2;
 
-    let startX = cornerX - rad;
-    let startY = cornerY - rad;
+    let startX = Math.floor(cornerX - max_rad);
+    let startY = Math.floor(cornerY - max_rad);
+    let endX = Math.ceil(cornerX + size - 1 + max_rad);
+    let endY = Math.ceil(cornerY + size - 1 + max_rad);
 
-    let endX = cornerX + (size - 1) + rad;
-    let endY = cornerY + (size - 1) + rad;
+    let nearest = null;
+    let minDistance = max_rad * max_rad;
 
-    let min = [cornerX,cornerY];
-    let min_distance = Math.pow(max_rad,3)
-
-    for (let x = startX; x <= endX; x+=other_block.size) {
-        for (let y = startY; y <= endY; y+=other_block.size) {
-
+    for (let x = startX; x <= endX; x++) {
+        for (let y = startY; y <= endY; y++) {
             let tile = Vars.world.tile(x, y);
 
-            if (tile == null) continue;
-            if (!tile.solid()) continue;
+            if (tile == null || !tile.solid()) continue;
 
             let other = tile.build;
 
-            if (other == null) continue;
-            if (other === source) continue;
+            if ((other == null) || (other == source) || (other == notThis) || other.dead) continue;
 
-            if (other.block.name == searchFor) {
-                if(Math.pow(x-centerX,2)+Math.pow(y-centerY,2)<min_distance){
-                    min_distance = Math.pow(x-centerX,2)+Math.pow(y-centerY,2)
-                    min = [other.tile.x, other.tile.y];
+            if (other.block.name != searchFor) continue;
 
-                }
+            let distance = Math.pow(other.tile.y - centerY,2) + Math.pow(other.tile.x - centerX,2);
+
+            if (distance > max_rad * max_rad) continue;
+
+            if (nearest == null || distance < minDistance) {
+                minDistance = distance;
+                nearest = [other.tile.x, other.tile.y];
             }
         }
     }
-    if(min_distance == Math.pow(max_rad,3)){
-        return null;
-    }else{
-        return min;
-    }
+
+    return nearest;
 }
 
 function createBlockSpark(b,max_chance){
@@ -64,3 +55,6 @@ function createBlockSpark(b,max_chance){
 
     }
 }
+
+exports.findNearest = findNearest;
+exports.createBlockSpark = createBlockSpark;
