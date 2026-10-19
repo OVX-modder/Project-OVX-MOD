@@ -7,10 +7,6 @@
   "consumes": {
     "powerBuffered": 9000
   },
-  "flammability": 1.5,
-  "explosiveness": 0.8,
-  "explosionRadius": 3,
-  "explosionDamage": 50,
   "requirements": [
     "lithium/15",
     "silicon/20",

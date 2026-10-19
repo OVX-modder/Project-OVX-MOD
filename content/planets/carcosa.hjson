@@ -8,7 +8,7 @@ mesh: [
     divisions: 7
     seed: 24
     radius: 0.435
-    color: 333333
+    color: 666666
     octaves: 5
     mag: 2
     persistence: 0.8
@@ -31,9 +31,46 @@ mesh: [
       ff2200
       ff0000
     ]
-}
-  
-]
+}]
+
+cloudMesh:[{
+  type: HexSkyMesh
+  planet: carcosa
+  divisions: 6
+  seed:12
+  speed:3
+  radius:0.45
+  color: 888888
+  octaves:4
+  persistence:0.8
+  scl:2
+  thresh:0.5
+},{
+  type: HexSkyMesh
+  planet: carcosa
+  divisions: 6
+  seed:12
+  speed:3
+  radius:0.475
+  color: aaaaaa
+  octaves:4
+  persistence:0.8
+  scl:2
+  thresh:0.475
+},{
+  type: HexSkyMesh
+  planet: carcosa
+  divisions: 6
+  seed:12
+  speed:3
+  radius:0.5
+  color: cccccc
+  octaves:4
+  persistence:0.8
+  scl:2
+  thresh:0.45
+}]
+
 sectorSize: 0.24
 allowLaunchSchematics: false
 allowLaunchToNumbered: false
@@ -41,18 +78,21 @@ allowLaunchLoadout: false
 allowSectorInvasion: false
 startSector: 0
 orbitSpacing: 0.2
-orbitRadius: 100
-orbitTime: 0.2
+orbitRadius: 20
+orbitTime: 20
 radius: 0.5
 minZoom: 1
-maxZoom: 1.5
+maxZoom: 2
 drawOrbit: true
 accessible: true
 updateLighting: true
 sectorSeed: 14513
 bloom: false
 visible: true
-hasAtmosphere: false
+hasAtmosphere: true
+atmosphereRadIn:0.05
+atmosphereRadOut:0.05
+atmosphereColor:010101
 allowWaveSimulation: false
 clearSectorOnLose: true
 allowWaves: false

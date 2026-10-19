@@ -4,10 +4,3 @@ author: "OVX   dracfinity"
 description: "  add alot of content, updating weekly"
 version: "0.9"
 minGameVersion: "160"
-
-
-//Load sun before to allow planet to orbit
-contentOrder: [
-  hastur
-  carcosa
-]
