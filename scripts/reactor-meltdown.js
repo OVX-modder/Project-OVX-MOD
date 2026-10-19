@@ -1,15 +1,12 @@
-
-
 var BLOCK_NAME = "ovx-project-mod-nuclear-reactor";
-var FUEL_NAME  = "ovx-project-mod-fuel-capsule";
 
-var HEAT_RATE   = 0.00238;
+var HEAT_RATE   = 0.00238; 
 var SMOKE_AT    = 0.15;
 var FLASH_AT    = 0.40;
 var ALARM_AT    = 0.10;
 var EXPLODE_AT  = 1.0;
 
-var BLAST_RADIUS = 480;
+var BLAST_RADIUS = 480; 
 var BLAST_DAMAGE = 2500;
 
 var FLASH_DURATION = 180;
@@ -19,12 +16,8 @@ var FLASH_MIN_PEAK = 0.0;
 
 var SHAKE_INTENSITY = 50;
 var SHAKE_DURATION  = 4;
-
-var SHOCK_DURATION = 240;
-var SHOCK_MAX_R    = 2800;
-
-var RANGE_ALARM    = 45;
-var DURATION_ALARM = 420;
+var SHOCK_DURATION  = 240;
+var SHOCK_MAX_R     = 2800;
 
 var alarmPlaying = {};
 var heatMap      = {};
@@ -34,10 +27,10 @@ var shockStart   = -1;
 var shockX       = 0;
 var shockY       = 0;
 var flashRegion  = null;
+var meltdownQueue = [];
+var exploding = {}; 
 
-var lastPlayTime = {
-    "reactor-alarm": -9999
-};
+var lastPlayTime = { "reactor-alarm": -9999 };
 
 function playSoundFresh(relativePath) {
     var mod = null;
@@ -55,15 +48,11 @@ function playSoundFresh(relativePath) {
 
 function playSoundOnce(relativePath, x, y, maxTiles, durationTicks) {
     var now = Vars.state.tick;
-
     var last = lastPlayTime[relativePath] || -9999;
     if (now - last < durationTicks) return;
 
     var px = 0, py = 0;
-    try {
-        px = Vars.player.x;
-        py = Vars.player.y;
-    } catch (e) { return; }
+    try { px = Vars.player.x; py = Vars.player.y; } catch (e) { return; }
 
     var dx = x - px;
     var dy = y - py;
@@ -83,12 +72,8 @@ function playSoundOnce(relativePath, x, y, maxTiles, durationTicks) {
 Events.on(ContentInitEvent, function() {
     try {
         flashRegion = Core.atlas.find("ovx-meltdown-flash");
-        if (flashRegion == null || !flashRegion.found()) {
-            flashRegion = null;
-        }
-    } catch (e) {
-        flashRegion = null;
-    }
+        if (flashRegion == null || !flashRegion.found()) flashRegion = null;
+    } catch (e) { flashRegion = null; }
 });
 
 Events.on(WorldLoadEvent, function() {
@@ -97,23 +82,18 @@ Events.on(WorldLoadEvent, function() {
     flashStart   = -1;
     flashPeak    = 0;
     shockStart   = -1;
-    lastPlayTime = {
-        "reactor-alarm": -9999
-    };
+    meltdownQueue = [];
+    exploding = {};
+    lastPlayTime = { "reactor-alarm": -9999 };
 });
 
 function tryFx(name, x, y) {
-    try {
-        var fx = Fx[name];
-        if (fx) fx.at(x, y);
-    } catch (e) {}
+    try { var fx = Fx[name]; if (fx) fx.at(x, y); } catch (e) {}
 }
 
 function damageAllUnits(x, y, radius, damage) {
     Groups.unit.each(function(u) {
-        if (u == null) return;
-        if (u.dead) return;
-        if (u.health <= 0) return;
+        if (!u || u.dead || u.health <= 0) return;
         var dx = u.x - x;
         var dy = u.y - y;
         var dist = Math.sqrt(dx * dx + dy * dy);
@@ -126,44 +106,42 @@ function damageAllUnits(x, y, radius, damage) {
 }
 
 Events.run(Trigger.update, function() {
-    if (!Vars.state.isGame()) return;
-    if (Vars.state.isPaused()) return;
-
-    var fuelItem = Vars.content.getByName(ContentType.item, FUEL_NAME);
+    if (!Vars.state.isGame() || Vars.state.isPaused()) return;
 
     Groups.build.each(function(b) {
-        if (!b.block) return;
-        if (b.block.name !== BLOCK_NAME) return;
-        if (!b.liquids) return;
+        if (!b.block || b.block.name !== BLOCK_NAME) return;
 
-        // Fuel check
-        var fuelCount = 0;
-        if (fuelItem && b.items) {
-            try { fuelCount = b.items.get(fuelItem); } catch (e) { fuelCount = 0; }
+        // 1. CHECK FOR FUEL (Any item inside means it has fuel)
+        var hasFuel = false;
+        if (b.items) {
+            try { hasFuel = b.items.total() > 0; } catch (e) {}
         }
 
-        if (fuelCount <= 0) {
+        if (!hasFuel) {
             heatMap[b.id] = 0;
             alarmPlaying[b.id] = false;
             return;
         }
 
-        // Water check
-        var water = b.liquids.get(Liquids.water);
-        if (water > 0.1) {
+        // 2. CHECK FOR WATER (Any liquid inside means it has water)
+        var hasWater = false;
+        if (b.liquids) {
+            try { hasWater = b.liquids.currentAmount() > 0.1; } catch (e) {}
+        }
+
+        if (hasWater) {
             heatMap[b.id] = 0;
             alarmPlaying[b.id] = false;
             return;
         }
 
-        // Heat rises
+        // 3. RISE HEAT (Has fuel, but NO water)
         var heat = (heatMap[b.id] || 0) + HEAT_RATE;
         if (heat > EXPLODE_AT) heat = EXPLODE_AT;
         heatMap[b.id] = heat;
 
-        // Alarm — plays once when heating starts
         if (heat >= ALARM_AT && !alarmPlaying[b.id]) {
-            playSoundOnce("reactor-alarm", b.x, b.y, RANGE_ALARM, DURATION_ALARM);
+            playSoundOnce("reactor-alarm", b.x, b.y, 45, 420);
             alarmPlaying[b.id] = true;
         }
 
@@ -173,23 +151,38 @@ Events.run(Trigger.update, function() {
             if (Vars.state.tick % 8 === 0) tryFx("smoke", b.x, b.y);
         }
 
-        // Meltdown
         if (heat >= EXPLODE_AT) {
-            doMeltdown(b);
+            meltdownQueue.push(b);
             heatMap[b.id] = 0;
             alarmPlaying[b.id] = false;
         }
     });
+
+    for (var i = 0; i < meltdownQueue.length; i++) {
+        var b = meltdownQueue[i];
+        if (b && !exploding[b.id]) {
+            exploding[b.id] = true;
+            triggerExplosion(b.x, b.y, b);
+        }
+    }
+    meltdownQueue = [];
+});
+
+Events.on(BlockDestroyEvent, function(e) {
+    var b = e.tile.build;
+    if (b && b.block && b.block.name === BLOCK_NAME) {
+        if (b.health <= 0 && !exploding[b.id]) {
+            exploding[b.id] = true;
+            triggerExplosion(b.x, b.y, b);
+        }
+    }
 });
 
 function spawnShockwaves(x, y) {
-    tryFx("nuclearShockwave", x, y);
+    tryFx("massiveExplosion", x, y);
     tryFx("impactWave", x, y);
 
-    var stages = [
-        60, 120, 200, 300, 420, 560, 720, 900,
-        1100, 1320, 1550, 1800, 2050, 2300, 2550, 2800
-    ];
+    var stages = [ 60, 120, 200, 300, 420, 560, 720, 900, 1100, 1320, 1550, 1800, 2050, 2300, 2550, 2800 ];
 
     for (var s = 0; s < stages.length; s++) {
         (function (radius, index) {
@@ -197,30 +190,27 @@ function spawnShockwaves(x, y) {
                 var count = 12 + index * 6;
                 for (var j = 0; j < count; j++) {
                     var a = (j / count) * Math.PI * 2;
-                    var ox = x + Math.cos(a) * radius;
-                    var oy = y + Math.sin(a) * radius;
-                    tryFx("shockwave", ox, oy);
+                    tryFx("shockwave", x + Math.cos(a) * radius, y + Math.sin(a) * radius);
                 }
             });
         })(stages[s], s);
     }
 }
 
-function doMeltdown(b) {
-    b.damage(9999);
-    Damage.damage(b.x, b.y, BLAST_RADIUS, BLAST_DAMAGE);
-    damageAllUnits(b.x, b.y, BLAST_RADIUS, BLAST_DAMAGE);
+function triggerExplosion(bx, by, b) {
+    try { Sounds.explosion.play(); } catch (e) {}
 
-    tryFx("nuclearSmoke",     b.x, b.y);
-    tryFx("reactorExplosion", b.x, b.y);
+    try {
+        Damage.damage(bx, by, BLAST_RADIUS, BLAST_DAMAGE);
+        damageAllUnits(bx, by, BLAST_RADIUS, BLAST_DAMAGE);
+    } catch (e) {}
 
-    spawnShockwaves(b.x, b.y);
+    tryFx("massiveExplosion", bx, by);
+    spawnShockwaves(bx, by);
 
     var rings = [
-        { radius: 60,  count: 8  },
-        { radius: 120, count: 12 },
-        { radius: 200, count: 16 },
-        { radius: 300, count: 20 },
+        { radius: 60,  count: 8  }, { radius: 120, count: 12 },
+        { radius: 200, count: 16 }, { radius: 300, count: 20 },
         { radius: 450, count: 28 }
     ];
 
@@ -228,47 +218,40 @@ function doMeltdown(b) {
         var ring = rings[r];
         for (var i = 0; i < ring.count; i++) {
             var angle = (i / ring.count) * Math.PI * 2;
-            var ox = b.x + Math.cos(angle) * ring.radius;
-            var oy = b.y + Math.sin(angle) * ring.radius;
-            tryFx("nuclearSmoke", ox, oy);
-            if (r < 2) tryFx("explosion", ox, oy);
+            tryFx("smoke", bx + Math.cos(angle) * ring.radius, by + Math.sin(angle) * ring.radius);
+            if (r < 2) tryFx("explosion", bx + Math.cos(angle) * ring.radius, by + Math.sin(angle) * ring.radius);
         }
-    }
-
-    for (var k = 0; k < 15; k++) {
-        var a2 = Math.random() * Math.PI * 2;
-        var r2 = Math.random() * 180;
-        tryFx("explosion", b.x + Math.cos(a2) * r2, b.y + Math.sin(a2) * r2);
     }
 
     try { Effect.shake(SHAKE_INTENSITY, SHAKE_DURATION); } catch (e) {}
 
     var peak = 1.0;
     try {
-        var px = Vars.player.x;
-        var py = Vars.player.y;
-        var dx = b.x - px;
-        var dy = b.y - py;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist <= NEAR_RADIUS) {
-            peak = 1.0;
-        } else if (dist >= FLASH_MAX_DIST) {
-            peak = FLASH_MIN_PEAK;
-        } else {
-            var t = (dist - NEAR_RADIUS) / (FLASH_MAX_DIST - NEAR_RADIUS);
-            peak = 1.0 + (FLASH_MIN_PEAK - 1.0) * t;
-        }
-    } catch (e) {
-        peak = 1.0;
-    }
+        var dist = Math.sqrt(Math.pow(bx - Vars.player.x, 2) + Math.pow(by - Vars.player.y, 2));
+        if (dist <= NEAR_RADIUS) peak = 1.0;
+        else if (dist >= FLASH_MAX_DIST) peak = FLASH_MIN_PEAK;
+        else peak = 1.0 + (FLASH_MIN_PEAK - 1.0) * ((dist - NEAR_RADIUS) / (FLASH_MAX_DIST - NEAR_RADIUS));
+    } catch (e) {}
 
     flashStart = Vars.state.tick;
     flashPeak  = peak;
-
     shockStart = Vars.state.tick;
-    shockX     = b.x;
-    shockY     = b.y;
+    shockX     = bx;
+    shockY     = by;
+
+    Groups.build.each(function(other) {
+        if (other && !other.dead && other.block && other.block.name === BLOCK_NAME && other.id !== (b ? b.id : -1)) {
+            var dx = other.x - bx;
+            var dy = other.y - by;
+            if (Math.sqrt(dx * dx + dy * dy) <= BLAST_RADIUS) {
+                heatMap[other.id] = EXPLODE_AT; 
+            }
+        }
+    });
+
+    if (b && !b.dead) {
+        try { b.kill(); } catch (e) {}
+    }
 }
 
 Events.run(Trigger.draw, function() {
@@ -306,15 +289,10 @@ Events.run(Trigger.draw, function() {
     var alpha = flashPeak * fade * 0.85;
 
     if (alpha > 1) alpha = 1;
-    if (alpha < 0) alpha = 0;
     if (alpha < 0.01) return;
 
-    var cx = 0;
-    var cy = 0;
-    try {
-        cx = Core.camera.position.x;
-        cy = Core.camera.position.y;
-    } catch (e) {
+    var cx = 0, cy = 0;
+    try { cx = Core.camera.position.x; cy = Core.camera.position.y; } catch (e) {
         try { cx = Vars.player.x; cy = Vars.player.y; } catch (e2) {}
     }
 
