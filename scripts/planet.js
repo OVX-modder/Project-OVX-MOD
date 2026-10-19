@@ -28,43 +28,39 @@ var BAN_LIQUIDS = [];
 var BAN_UNITS = [];
 
 var FLOOR_SWAPS = [
-    { from: "shallow-water",           to: "molten-slag" },
-    { from: "sand-water",              to: "molten-slag" },
-    { from: "darksand-water",          to: "molten-slag" },
+    { from: "shallow-water", to: "molten-slag" },
+    { from: "sand-water", to: "molten-slag" },
+    { from: "darksand-water", to: "molten-slag" },
     { from: "darksand-tainted-water",  to: "molten-slag" },
-    { from: "deep-tainted-water",      to: "molten-slag" },
-    { from: "tainted-water",           to: "molten-slag" },
-    { from: "deep-water",              to: "molten-slag" },
-    { from: "water",                   to: "molten-slag" },
-    { from: "molten-slag",             to: "water" },
-    { from: "sand-floor",              to: "darksand" },
-    { from: "sand",                    to: "darksand" },
-    { from: "snow",                    to: "basalt" },
-    { from: "ice-snow",                to: "basalt" },
-    { from: "ice",                     to: "basalt" },
-    { from: "salt",                    to: "basalt" }
+    { from: "deep-tainted-water", to: "molten-slag" },
+    { from: "tainted-water", to: "molten-slag" },
+    { from: "deep-water", to: "molten-slag" },
+    { from: "water", to: "molten-slag" },
+    { from: "sand-floor", to: "darksand" },
+    { from: "sand", to: "darksand" },
+    { from: "snow", to: "basalt" },
+    { from: "ice-snow", to: "basalt" },
+    { from: "ice", to: "basalt" },
+    { from: "salt", to: "basalt" }
 ];
 
 var WALL_SWAPS = [
-    { from: "snow-wall",   to: "stone-wall" },
-    { from: "ice-wall",    to: "stone-wall" },
-    { from: "sand-wall",   to: "stone-wall" },
-    { from: "dune-wall",   to: "stone-wall" },
-    { from: "salt-wall",   to: "stone-wall" }
+    { from: "snow-wall", to: "stone-wall" },
+    { from: "ice-wall", to: "stone-wall" },
+    { from: "sand-wall", to: "stone-wall" },
+    { from: "dune-wall", to: "stone-wall" },
+    { from: "salt-wall", to: "stone-wall" }
 ];
 
 var LIQUID_SWAPS = [
-    { from: "water",       to: "slag" },
-    { from: "deep-water",  to: "slag" },
-    { from: "slag",        to: "water" },
-    { from: "oil",         to: "water" }
+//    { from: "water", to: "slag" },
 ];
 
 var ORE_SWAPS = [];
 
-// =============================================
-//   WAVE STAGES --- add any unit in the list
-// =============================================
+// ===============
+//   WAVE STAGES
+// ===============
 
 var WAVE_STAGES = [
     { begin: 1,  end: 8,  units: [ "dagger", "mace", "flare", "risso" ],
@@ -82,7 +78,7 @@ var WAVE_STAGES = [
           "reign", "toxopid",
           "corvus", "vela",
           "navanax"
-          // "ovx-project-mod-boss", // this is a example for modded units
+          // "ovx-project-mod-boss", // this is a example
       ],
       amount: 1, scaling: 1.5 }
 ];
@@ -130,8 +126,6 @@ function buildDistMap() {
         _distMap[s.id] = d / maxDist;
     });
 
-    print("[DIST] built " + Object.keys(_distMap).length +
-          " entries, maxDist=" + maxDist.toFixed(1));
 }
 
 function pickMaxWaves(threat) {
@@ -170,7 +164,6 @@ function setupWaves(maxWaves) {
         for (var i = 0; i < st.units.length; i++) {
             var ut = Vars.content.unit(st.units[i]);
             if (!ut) {
-                print("[WAVE] unknown unit: " + st.units[i]);
                 continue;
             }
 
@@ -187,7 +180,6 @@ function setupWaves(maxWaves) {
     Vars.state.rules.winWave = maxWaves;
     Vars.state.rules.waveSpacing = 6000;
 
-    print("[WAVE] setup complete, max waves = " + maxWaves);
 }
 
 var CarcosaGen = extend(SerpuloPlanetGenerator, {
@@ -355,7 +347,6 @@ Events.on(WorldLoadEvent, function() {
         }
     }
 
-    // Core replace with item preservation
     var ember = Vars.content.block("ovx-project-mod-core-ember");
     if (!ember) ember = Vars.content.block("core-ember");
 
@@ -397,6 +388,8 @@ Events.on(WorldLoadEvent, function() {
                             }
                         }
                     } catch (e3) {}
+                } catch (e) {
+                    print("[CORE] replace error: " + e);
                 }
             }
         }
