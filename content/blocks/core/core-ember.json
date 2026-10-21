@@ -8,7 +8,7 @@
   "category": "effect",
   "buildVisibility": "hidden",
   "alwaysUnlocked": true,
-  "landZoomFrom": 00.2,
+  "landZoomFrom": 0.2,
   "landZoomTo": 4,
   "landDuration": 320,
   "thrusterLength": 34,
