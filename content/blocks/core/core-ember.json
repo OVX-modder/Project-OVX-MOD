@@ -16,7 +16,7 @@
   "thrusterColor": "ddeeff",
   "launchEffect": "launch"
   "landSound": "new-landing1",
-//  "launchSound": "ovx-ember-launch",
+#  "launchSound": "ovx-ember-launch",
   "requirements": [
     { "item": "copper", "amount": 1 }
   ],
