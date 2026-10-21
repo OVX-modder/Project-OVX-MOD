@@ -14,11 +14,9 @@
   "thrusterLength": 34,
   "thrusterOffset": -4,
   "thrusterColor": "ddeeff",
-  "landSound": "coreLand",
-  "launchSound": "coreLaunch",
   "launchEffect": "launch"
-  "landSound": "ovx-ember-land",
-  "launchSound": "ovx-ember-launch",
+  "landSound": "new-landing1",
+//  "launchSound": "ovx-ember-launch",
   "requirements": [
     { "item": "copper", "amount": 1 }
   ],
