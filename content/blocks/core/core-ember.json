@@ -1,7 +1,7 @@
 {
   "type": "CoreBlock",
   "name": "core-ember",
-  "size": 4,
+  "size": 3,
   "health": 4000,
   "itemCapacity": 4000,
   "unitType": "beta",
