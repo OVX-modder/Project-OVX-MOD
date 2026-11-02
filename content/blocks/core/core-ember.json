@@ -1,0 +1,29 @@
+{
+  "type": "CoreBlock",
+  "name": "core-ember",
+  "size": 3,
+  "health": 4000,
+  "itemCapacity": 4000,
+  "unitType": "beta",
+  "category": "effect",
+  "buildVisibility": "hidden",
+  "alwaysUnlocked": true,
+  "landZoomFrom": 0.2,
+  "landZoomTo": 4,
+  "landDuration": 320,
+  "thrusterLength": 34,
+  "thrusterOffset": -4,
+  "thrusterColor": "ddeeff",
+  "launchEffect": "launch"
+  "landSound": "new-landing1",
+  //"launchSound": "ovx-ember-launch",
+  "requirements": [
+    { "item": "copper", "amount": 1 }
+  ],
+  "shownPlanets": [ "ovx-project-mod-carcosa" ],
+  "research": {
+    "root": true,
+    "name": "carcosa-tech",
+    "planet": "carcosa"
+  }
+}

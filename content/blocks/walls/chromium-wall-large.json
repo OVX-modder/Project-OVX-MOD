@@ -1,0 +1,18 @@
+{
+  "type": "Wall",
+  "name": "chromium-wall-large",
+  "localizedName": "Large Chromium Wall",
+  "size": 2,
+  "health": 2100,
+  "category": "defense",
+  "buildVisibility": "shown",
+  "requirements": [
+    { "item": "chromium", "amount": 35 }
+  ],
+  "research": {
+    "parent": "graphite-press",
+    "requirements": [
+      { "item": "chromium", "amount": 160 }
+    ]
+  }
+}

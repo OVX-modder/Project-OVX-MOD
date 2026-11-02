@@ -1,6 +1,5 @@
 type: GenericCrafter
 name: Boiler
-description: Heats water using coal to generate steam.
 size: 2
 category: crafting
 requirements: [

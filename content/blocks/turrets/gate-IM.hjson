@@ -1,0 +1,9 @@
+name: Gate-IM
+category:turret
+size : 2
+health: 100
+requirements: [
+    chromium/30
+    copper/40
+    lithium/20
+]

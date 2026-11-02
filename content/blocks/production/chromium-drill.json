@@ -1,0 +1,22 @@
+{
+  "type": "Drill",
+  "name": "chromium-drill",
+  "localizedName": "Chromium Drill",
+  "size": 2,
+  "tier": 3,
+  "drillTime": 200,
+  "rotateSpeed": 3,
+  "category": "production",
+  "buildVisibility": "shown",
+  "consumes": { "power": 0.5 },
+  "requirements": [
+    { "item": "chromium", "amount": 20 },
+    { "item": "graphite", "amount": 10 }
+  ],
+  "research": {
+    "parent": "graphite-press",
+    "requirements": [
+      { "item": "chromium", "amount": 50 }
+    ]
+  }
+}

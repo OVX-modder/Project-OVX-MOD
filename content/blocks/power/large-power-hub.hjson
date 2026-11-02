@@ -1,0 +1,20 @@
+type: PowerNode
+name: Large Power Hub
+size:2
+category: power
+
+
+squareSprite: false
+
+requirements: [
+  chromium/10
+  lithium/10
+  copper/15
+]
+
+laserRange : 30
+
+laserColor1: 444444
+laserColor2: 333333
+
+maxNodes: 20
