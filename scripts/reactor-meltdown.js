@@ -111,7 +111,6 @@ Events.run(Trigger.update, function() {
     Groups.build.each(function(b) {
         if (!b.block || b.block.name !== BLOCK_NAME) return;
 
-        // 1. CHECK FOR FUEL (Any item inside means it has fuel)
         var hasFuel = false;
         if (b.items) {
             try { hasFuel = b.items.total() > 0; } catch (e) {}
@@ -123,7 +122,6 @@ Events.run(Trigger.update, function() {
             return;
         }
 
-        // 2. CHECK FOR WATER (Any liquid inside means it has water)
         var hasWater = false;
         if (b.liquids) {
             try { hasWater = b.liquids.currentAmount() > 0.1; } catch (e) {}
@@ -135,7 +133,6 @@ Events.run(Trigger.update, function() {
             return;
         }
 
-        // 3. RISE HEAT (Has fuel, but NO water)
         var heat = (heatMap[b.id] || 0) + HEAT_RATE;
         if (heat > EXPLODE_AT) heat = EXPLODE_AT;
         heatMap[b.id] = heat;
