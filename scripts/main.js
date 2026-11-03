@@ -5,4 +5,5 @@ require("hide-dot");
 require("incendiary-units");
 require ("reactor-meltdown");
 require ("gates");
-require("planets")
+require("planets");
+require("carcosa-ring");
